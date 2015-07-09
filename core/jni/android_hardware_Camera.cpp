@@ -1217,7 +1217,7 @@ static const JNINativeMethod camMethods[] = {
   { "native_getParameters",
     "()Ljava/lang/String;",
     (void *)android_hardware_Camera_getParameters },
-  { "reconnect",
+  { "reconnect",	
     "()V",
     (void*)android_hardware_Camera_reconnect },
   { "lock",
