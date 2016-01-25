@@ -8405,7 +8405,9 @@ public class StatusBar extends SystemUI implements DemoMode,
         boolean shouldPeek = shouldPeek(entry, notification);
         boolean alertAgain = alertAgain(entry, n);
 
-        updateHeadsUp(key, entry, shouldPeek, alertAgain);
+        if (mUseHeadsUp) {
+           updateHeadsUp(key, entry, shouldPeek, alertAgain);
+        }
         updateNotifications();
 
         if (!notification.isClearable()) {
