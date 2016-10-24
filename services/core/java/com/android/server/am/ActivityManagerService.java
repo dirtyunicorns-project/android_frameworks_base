@@ -18216,10 +18216,13 @@ public class ActivityManagerService extends IActivityManager.Stub
             final boolean isolated = app.isolated;
             // post BatteryStatsService.noteProcessFinish to handler thread
             // as it does not need to acquire mPidsSelfLocked.
-            mHandler.post(() -> {
-                mBatteryStatsService.noteProcessFinish(processName, infoUid);
-                if (isolated) {
-                    mBatteryStatsService.removeIsolatedUid(uid, infoUid);
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mBatteryStatsService.noteProcessFinish(processName, infoUid);
+                    if (isolated) {
+                        mBatteryStatsService.removeIsolatedUid(uid, infoUid);
+                    }
                 }
             });
             app.setPid(0);
