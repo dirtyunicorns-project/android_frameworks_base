@@ -83,6 +83,7 @@ import static android.os.Process.readProcFile;
 import static android.os.Process.removeAllProcessGroups;
 import static android.os.Process.sendSignal;
 import static android.os.Process.setProcessGroup;
+import static android.os.Process.setCgroupProcsProcessGroup;
 import static android.os.Process.setThreadPriority;
 import static android.os.Process.setThreadScheduler;
 import static android.os.Process.startWebView;
@@ -1707,6 +1708,19 @@ public class ActivityManagerService extends IActivityManager.Stub
     CompatModeDialog mCompatModeDialog;
     UnsupportedDisplaySizeDialog mUnsupportedDisplaySizeDialog;
     long mLastMemUsageReportTime = 0;
+
+    // Min aging threshold in milliseconds to consider a B-service
+    int mMinBServiceAgingTime =
+            SystemProperties.getInt("ro.vendor.qti.sys.fw.bservice_age", 5000);
+    // Threshold for B-services when in memory pressure
+    int mBServiceAppThreshold =
+            SystemProperties.getInt("ro.vendor.qti.sys.fw.bservice_limit", 5);
+    // Enable B-service aging propagation on memory pressure.
+    boolean mEnableBServicePropagation =
+            SystemProperties.getBoolean("ro.vendor.qti.sys.fw.bservice_enable", false);
+    // Process in same process Group keep in same cgroup
+    boolean mEnableProcessGroupCgroupFollow =
+            SystemProperties.getBoolean("ro.vendor.qti.cgroup_follow.enable",false);
 
     /**
      * Flag whether the current user is a "monkey", i.e. whether
@@ -22098,7 +22112,11 @@ public class ActivityManagerService extends IActivityManager.Stub
                 }
                 long oldId = Binder.clearCallingIdentity();
                 try {
-                    setProcessGroup(app.pid, processGroup);
+                    if (mEnableProcessGroupCgroupFollow) {
+                        setCgroupProcsProcessGroup(app.info.uid, app.pid, processGroup);
+                    } else {
+                        setProcessGroup(app.pid, processGroup);
+                    }
                     if (app.curSchedGroup == ProcessList.SCHED_GROUP_TOP_APP) {
                         // do nothing if we already switched to RT
                         if (oldSchedGroup != ProcessList.SCHED_GROUP_TOP_APP) {
