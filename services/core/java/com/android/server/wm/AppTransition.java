@@ -2237,6 +2237,6 @@ public class AppTransition implements Dump {
             mActivityAnimations[i] = Settings.System.getInt(resolver, Settings.System.ACTIVITY_ANIMATION_CONTROLS[i], 0);
         }
         int temp = Settings.System.getInt(resolver, Settings.System.ANIMATION_CONTROLS_DURATION, 0);
-        mAnimationDuration = temp * 15;
+        mAnimationDuration = temp;
     }
 }
