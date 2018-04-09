@@ -4651,6 +4651,11 @@ public final class Settings {
          * @hide
 	 */
         public static final String ANIMATION_CONTROLS_DURATION = "animation_controls_duration";
+	
+	/**
+         * @hide
+         */
+        public static final String ANIMATION_CONTROLS_NO_OVERRIDE = "animation_no_override";
 
         /**
          * Change quick settings tiles animation style
