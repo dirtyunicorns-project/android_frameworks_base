@@ -207,4 +207,16 @@
 
   <!-- Whether the device supports Smart Pixels -->
   <java-symbol type="bool" name="config_enableSmartPixels" />
+
+  <!-- Profiles -->
+  <java-symbol type="xml" name="profile_default" />
+  <java-symbol type="string" name="wildcardProfile" />
+
+  <java-symbol type="string" name="profileNameDefault" />
+  <java-symbol type="string" name="profileNameWork" />
+  <java-symbol type="string" name="profileNameHome" />
+  <java-symbol type="string" name="profileNameSilent" />
+  <java-symbol type="string" name="profileNameNight" />
+  <java-symbol type="string" name="profileNameAutomobile" />
+
 </resources>

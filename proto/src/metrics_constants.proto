@@ -4610,5 +4610,7 @@ message MetricsEvent {
 
     // DU tweaks
     DIRTYTWEAKS = 9999;
+
+    SYSTEM_PROFILES = 1503;
   }
 }
