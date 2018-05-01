@@ -4117,6 +4117,16 @@ public final class Settings {
         /** @hide */
         private static final Validator SHOW_BATTERY_PERCENT_VALIDATOR =
                 new InclusiveIntegerRangeValidator(0, 2);
+		
+	/**
+         * @hide
+         */
+        public static final String FLASH_ON_CALL_WAITING = "flash_on_call_waiting";
+
+        /**
+         * @hide
+         */
+        public static final String FLASH_ON_CALLWAITING_DELAY = "flash_on_call_waiting_delay";
 
         /**
          * Custom button brightness value for manual mode

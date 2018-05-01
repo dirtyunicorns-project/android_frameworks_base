@@ -136,4 +136,6 @@ oneway interface IStatusBar
      * Aex
      */
     void toggleCameraFlash();
+    void toggleCameraFlashOn();
+    void toggleCameraFlashOff();
 }

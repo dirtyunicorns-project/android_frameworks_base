@@ -64,35 +64,6 @@ public class Utils {
         return isPackageInstalled(context, pkg, true);
     }
 
-    // Toggle flashlight
-    public static void toggleFlashLight() {
-        FireActions.toggleFlashLight();
-    }
-
-    private static final class FireActions {
-        private static IStatusBarService mStatusBarService = null;
-        private static IStatusBarService getStatusBarService() {
-            synchronized (FireActions.class) {
-                if (mStatusBarService == null) {
-                    mStatusBarService = IStatusBarService.Stub.asInterface(
-                            ServiceManager.getService("statusbar"));
-                }
-                return mStatusBarService;
-            }
-        }
-
-        public static void toggleFlashLight() {
-            IStatusBarService service = getStatusBarService();
-            if (service != null) {
-                try {
-                    service.toggleFlashlight();
-                } catch (RemoteException e) {
-                    // do nothing.
-                }
-            }
-        }
-    }
-
     // Check to see if device supports the Fingerprint scanner
     public static boolean hasFingerprintSupport(Context context) {
         FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
@@ -161,6 +132,11 @@ public class Utils {
     public static void toggleCameraFlashOff() {
         FireActions.toggleCameraFlashOff();
     }
+    
+    // Toggle flashlight
+    public static void toggleFlashLight() {
+        FireActions.toggleFlashLight();
+    }
 
     private static final class FireActions {
         private static IStatusBarService mStatusBarService = null;
@@ -171,6 +147,39 @@ public class Utils {
                             ServiceManager.getService("statusbar"));
                 }
                 return mStatusBarService;
+            }
+        }
+
+        public static void toggleFlashLight() {
+            IStatusBarService service = getStatusBarService();
+            if (service != null) {
+                try {
+                    service.toggleFlashlight();
+                } catch (RemoteException e) {
+                    // do nothing.
+                }
+            }
+        }
+	
+	public static void toggleCameraFlashOn(){
+            IStatusBarService service = getStatusBarService();
+            if (service != null) {
+                try {
+                    service.toggleCameraFlashOn();
+                } catch (RemoteException e) {
+                    // do nothing.
+                }
+            }
+        }
+
+        public static void toggleCameraFlashOff(){
+            IStatusBarService service = getStatusBarService();
+            if (service != null) {
+                try {
+                    service.toggleCameraFlashOff();
+                } catch (RemoteException e) {
+                    // do nothing.
+                }
             }
         }
 
