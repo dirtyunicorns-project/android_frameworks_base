@@ -37,7 +37,8 @@ public class AwesomeAnimationHelper {
     public final static int ANIMATION_GROW_SHRINK_BOTTOM = 11;
     public final static int ANIMATION_GROW_SHRINK_LEFT = 12;
     public final static int ANIMATION_GROW_SHRINK_RIGHT = 13;
-    public final static int ANIMATION_ETHANS = 14;
+    public final static int ANIMATION_ANDROID_P = 14;
+    public final static int ANIMATION_ETHANS = 15;
 
     public static final int TRANSIT_ACTIVITY_OPEN = 6;
     public static final int TRANSIT_ACTIVITY_CLOSE = 7;
@@ -68,6 +69,7 @@ public class AwesomeAnimationHelper {
         animList.add(ANIMATION_GROW_SHRINK_BOTTOM);
         animList.add(ANIMATION_GROW_SHRINK_LEFT);
         animList.add(ANIMATION_GROW_SHRINK_RIGHT);
+	animList.add(ANIMATION_ANDROID_P);
 	animList.add(ANIMATION_ETHANS);
         int length = animList.size();
         int[] anim = new int[length];
@@ -237,6 +239,9 @@ public class AwesomeAnimationHelper {
                 break;
             case ANIMATION_GROW_SHRINK:
                 value = res.getString(com.android.internal.R.string.animation_grow_shrink);
+                break;
+	    case ANIMATION_ANDROID_P:
+                value = res.getString(com.android.internal.R.string.animation_android_p);
                 break;
 	    case ANIMATION_ETHANS:
                 value = res.getString(com.android.internal.R.string.animation_ethans);
