@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2015, Sergii Pylypenko
  *           (c) 2018, Joe Maples
- *           (c) 2018, Adin Kwok
  *           (c) 2018, CarbonROM
  * All rights reserved.
  *
@@ -51,7 +50,6 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.PowerManager;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.provider.Settings;
@@ -69,6 +67,7 @@ public class SmartPixelsService extends Service {
     private Bitmap bmp;
 
     private boolean destroyed = false;
+    private boolean intentProcessed = false;
     public static boolean running = false;
 
     private int startCounter = 0;
@@ -123,19 +122,18 @@ public class SmartPixelsService extends Service {
             return;
         }
 
+
         startCounter++;
         final int handlerStartCounter = startCounter;
         final Handler handler = new Handler();
-        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (view == null || destroyed || handlerStartCounter != startCounter) {
                     return;
-                } else if (pm.isInteractive()) {
-                    updatePattern();
-                    view.invalidate();
                 }
+                updatePattern();
+                view.invalidate();
                 if (!destroyed) {
                     handler.postDelayed(this, Grids.ShiftTimeouts[mShiftTimeout]);
                 }
@@ -156,7 +154,22 @@ public class SmartPixelsService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        return START_STICKY;
+        if(intent != null && intent.getAction() != null) {
+            return START_STICKY;
+        }
+        else {
+            if (Intent.ACTION_DELETE.equals(intent.getAction()) ||
+                    (intentProcessed && Intent.ACTION_INSERT.equals(intent.getAction()))) {
+                Log.d(LOG, "Service got shutdown intent");
+                stopSelf();
+                intentProcessed = true;
+                return START_NOT_STICKY;
+            }
+
+        intentProcessed = true;
+        Log.d(LOG, "Service got intent " + intent.getAction());
+        return START_REDELIVER_INTENT;
+        }
     }
 
     @Override
