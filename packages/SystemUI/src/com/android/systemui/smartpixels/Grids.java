@@ -31,7 +31,7 @@
  *
  */
 
-package com.android.server.smartpixels;
+package com.android.systemui.smartpixels;
 
 public class Grids {
 
