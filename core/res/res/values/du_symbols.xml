@@ -261,4 +261,6 @@
   <java-symbol type="string" name="profileNameNight" />
   <java-symbol type="string" name="profileNameAutomobile" />
 
+  <!-- Custom clocks -->
+  <java-symbol type="string" name="custom_clock_styles" />
 </resources>
