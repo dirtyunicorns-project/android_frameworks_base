@@ -55,16 +55,16 @@ public class ClockLeft extends Clock {
     }
 
     @Override
-    public boolean isEnabled() {
-        return mClockStyle == STYLE_CLOCK_LEFT && mShowClock
-                && mClockVisibleByPolicy && mClockVisibleByUser;
-    }
-
-    @Override
     public void disable(int state1, int state2, boolean animate) {
         boolean clockVisibleByPolicy = (state1 & StatusBarManager.DISABLE_CLOCK) == 0;
         if (clockVisibleByPolicy != mClockVisibleByPolicy) {
             setClockVisibilityByPolicy(clockVisibleByPolicy);
         }
     }
+
+    @Override
+    public boolean isEnabled() {
+        return mClockStyle == STYLE_CLOCK_LEFT && mShowClock
+                && mClockVisibleByPolicy && mClockVisibleByUser;
+     }
 }

@@ -60,6 +60,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+import android.util.Log;
 
 /**
  * Digital clock for the status bar.
@@ -97,6 +98,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
 
     public static final int STYLE_CLOCK_RIGHT = 0;
     public static final int STYLE_CLOCK_LEFT = 1;
+    public static final int STYLE_CLOCK_CENTER  = 2;
 
     protected int mClockDateDisplay = CLOCK_DATE_DISPLAY_GONE;
     protected int mClockDateStyle = CLOCK_DATE_STYLE_REGULAR;

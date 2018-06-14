@@ -75,6 +75,8 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     private View mClock;
     private View mLeftClock;
+    private View mCenterClock;
+    private LinearLayout mCenterClockLayout;
     private BatteryMeterView mBattery;
 
     private int mTickerEnabled;
@@ -181,6 +183,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
             updateSettings(true);
             ((Clock)mClock).updateSettings();
             ((Clock)mLeftClock).updateSettings();
+            ((Clock)mCenterClock).updateSettings();
             mBattery.updateSettings(true);
             mStatusBarComponent.updateQsbhClock();
             mStatusBarComponent.updateBatterySettings();
@@ -208,6 +211,8 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         mSignalClusterView = mStatusBar.findViewById(R.id.signal_cluster);
         mClock = mStatusBar.findViewById(R.id.clock);
         mLeftClock = mStatusBar.findViewById(R.id.left_clock);
+        mCenterClock = mStatusBar.findViewById(R.id.center_clock);
+        mCenterClockLayout = (LinearLayout) mStatusBar.findViewById(R.id.center_clock_layout);
         mBattery = mStatusBar.findViewById(R.id.battery);
         Dependency.get(DarkIconDispatcher.class).addDarkReceiver(mSignalClusterView);
         mCustomCarrierLabel = mStatusBar.findViewById(R.id.statusbar_carrier_text);
@@ -321,29 +326,39 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     public void hideSystemIconArea(boolean animate) {
         animateHide(mSystemIconArea, animate, true);
+        animateHide(mCenterClockLayout, animate, true);
     }
 
     public void showSystemIconArea(boolean animate) {
         animateShow(mSystemIconArea, animate);
+        animateShow(mCenterClockLayout, animate);
     }
 
     public void hideNotificationIconArea(boolean animate) {
         animateHide(mNotificationIconAreaInner, animate, true);
+        animateHide(mCenterClockLayout, animate, true);
         if (mShowLogo) {
             animateHide(mDULogo, animate, true);
         }
         if (((Clock)mLeftClock).isEnabled()) {
             animateHide(mLeftClock, animate, true);
         }
+        if (((Clock)mCenterClock).isEnabled()) {
+            animateHide(mCenterClock, animate, true);
+        }
     }
 
     public void showNotificationIconArea(boolean animate) {
         animateShow(mNotificationIconAreaInner, animate);
+        animateShow(mCenterClockLayout, animate);
         if (mShowLogo) {
             animateShow(mDULogo, animate);
         }
         if (((Clock)mLeftClock).isEnabled()) {
             animateShow(mLeftClock, animate);
+        }
+        if (((Clock)mCenterClock).isEnabled()) {
+            animateShow(mCenterClock, animate);
         }
     }
 
